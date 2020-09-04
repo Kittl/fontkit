@@ -2,7 +2,7 @@ import babel from 'rollup-plugin-babel';
 import localResolve from 'rollup-plugin-local-resolve';
 import json from 'rollup-plugin-json';
 import brfs from 'brfs';
-import { Readable } from 'stream'
+import { Readable } from 'stream';
 
 function rollupBrfs(options = {}) {
   return {
@@ -23,18 +23,18 @@ function rollupBrfs(options = {}) {
         stream.on('end', function () {
           resolve({
             code: output,
-            map: { mappings: "" }
+            map: { mappings: '' },
           });
         });
         stream.on('error', function (error) {
           reject(error);
         });
       });
-    }
+    },
   };
-};
+}
 
-function createConfig(filename, browserlist, suffix = '') {
+function createConfig(filename, suffix = '') {
   const isBrowser = suffix === '.browser';
   return {
     input: `src/${filename}`,
@@ -42,7 +42,7 @@ function createConfig(filename, browserlist, suffix = '') {
       file: `${filename}${suffix}.js`,
       format: isBrowser ? 'es' : 'cjs',
       sourcemap: true,
-      interop: !!suffix
+      interop: !!suffix,
     },
     external: [
       'restructure',
@@ -53,7 +53,8 @@ function createConfig(filename, browserlist, suffix = '') {
       'deep-equal',
       'unicode-trie',
       'dfa',
-      'restructure/src/utils'
+      'restructure/src/utils',
+      'fs'
     ],
     plugins: [
       localResolve(),
@@ -61,45 +62,26 @@ function createConfig(filename, browserlist, suffix = '') {
       babel({
         presets: [
           [
-            '@babel/preset-env', 
+            '@babel/preset-env',
             {
-              modules: false,
+              // modules: false,
               targets: {
-                browsers: browserlist
-              }
-            }
-          ]
-        ],
-        plugins: [
-          [
-            '@babel/plugin-proposal-decorators',
-            {
-              legacy: true
-            }
+                browsers: "> 0.25%, last 2 versions",
+              },
+            },
           ],
-          '@babel/plugin-proposal-class-properties'
-        ]
+        ],
       }),
-      isBrowser ? rollupBrfs({ parserOpts: { sourceType: 'module' } }) : undefined
-    ]
-  }
+      isBrowser
+        ? rollupBrfs({ parserOpts: { sourceType: 'module' } })
+        : undefined,
+
+    ],
+  };
 }
 
-const modernBrowsers = [
-  'Firefox 57',
-  'Chrome 60',
-  'iOS 10',
-  'Safari 10'
-];
-
-const legacyBrowsers = [
-  'ie 11'
-];
-
 export default [
-  createConfig('base', modernBrowsers),
-  createConfig('index', modernBrowsers),
-  createConfig('index', modernBrowsers, '.browser'),
-  createConfig('base', legacyBrowsers, '.es5'),
-  createConfig('index', legacyBrowsers, '.es5')
+  createConfig('base'),
+  createConfig('index'),
+  createConfig('index', '.browser'),
 ];

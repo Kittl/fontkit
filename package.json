@@ -1,5 +1,5 @@
 {
-  "name": "fontkit",
+  "name": "@heritage-type/fontkit",
   "version": "1.8.1",
   "description": "An advanced font engine for Node and the browser",
   "keywords": [
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "test": "mocha",
-    "prepublish": "run-s clean trie:** rollup",
+    "prepare": "run-s clean trie:** rollup",
     "trie:data": "babel-node src/opentype/shapers/generate-data.js",
     "trie:use": "babel-node src/opentype/shapers/gen-use.js",
     "trie:indic": "babel-node src/opentype/shapers/gen-indic.js",
@@ -45,7 +45,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/foliojs/fontkit.git"
+    "url": "git://github.com/HeritageType/fontkit.git"
   },
   "dependencies": {
     "brotli": "^1.2.0",

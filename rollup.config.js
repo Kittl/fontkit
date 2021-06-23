@@ -47,7 +47,7 @@ function createConfig(filename, suffix = '') {
     external: [
       'restructure',
       'tiny-inflate',
-      'brotli/decompress',
+      '@heritage-type/brotli/decompress',
       'unicode-properties',
       'clone',
       'deep-equal',

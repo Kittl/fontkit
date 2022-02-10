@@ -1,6 +1,6 @@
 {
   "name": "@heritage-type/fontkit",
-  "version": "1.8.3",
+  "version": "1.8.4",
   "description": "An advanced font engine for Node and the browser",
   "keywords": [
     "opentype",

@@ -102,7 +102,7 @@ export default class OTProcessor {
     // Build a feature lookup table
     if (changed) {
       this.features = {};
-      if (this.language) {
+      if (this.language && this.table.featureList) {
         for (let featureIndex of this.language.featureIndexes) {
           let record = this.table.featureList[featureIndex];
           let substituteFeature = this.substituteFeatureForVariations(featureIndex);

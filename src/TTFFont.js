@@ -449,7 +449,12 @@ export default class TTFFont {
     }
 
     for (let axis of this.fvar.axis) {
-      res[axis.axisTag.trim()] = {
+      const tag = axis.axisTag.trim();
+      let name = tag;
+      if(axis.name && axis.name.en) {
+        name = axis.name.en;
+      }
+      res[tag] = {
         name: axis.name.en,
         min: axis.minValue,
         default: axis.defaultValue,
@@ -475,6 +480,9 @@ export default class TTFFont {
     }
 
     for (let instance of this.fvar.instance) {
+      if(!instance || !instance.name) {
+        continue;
+      }
       let settings = {};
       for (let i = 0; i < this.fvar.axis.length; i++) {
         let axis = this.fvar.axis[i];

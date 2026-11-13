@@ -86,11 +86,17 @@
     "unicode-properties": "^1.4.0",
     "unicode-trie": "^2.0.0"
   },
+  "overrides": {
+    "mocha": {
+      "glob": "^14.0.6",
+      "minimatch": "^11.0.8"
+    }
+  },
   "devDependencies": {
     "c8": "^7.11.3",
     "codepoints": "^1.2.0",
     "concat-stream": "^2.0.0",
-    "mocha": "^10.0.0",
+    "mocha": "^12.0.3",
     "npm-run-all": "^4.1.5",
     "parcel": "2.0.0-canary.1713",
     "shx": "^0.3.4"

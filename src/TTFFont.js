@@ -14,6 +14,7 @@ import TTFSubset from './subset/TTFSubset';
 import CFFSubset from './subset/CFFSubset';
 import BBox from './glyph/BBox';
 import { asciiDecoder } from './utils';
+import DecodeStream from './DecodeStream';
 
 /**
  * This is the base class for all SFNT-based font formats in fontkit.
@@ -23,7 +24,8 @@ export default class TTFFont {
   type = 'TTF';
 
   static probe(buffer) {
-    let format = asciiDecoder.decode(buffer.slice(0, 4));
+    // Native TextDecoder may reject shared views; copy only the format signature.
+    let format = asciiDecoder.decode(new Uint8Array(buffer.slice(0, 4)));
     return format === 'true' || format === 'OTTO' || format === String.fromCharCode(0, 1, 0, 0);
   }
 
@@ -526,7 +528,7 @@ export default class TTFFont {
       }
     });
 
-    let stream = new r.DecodeStream(this.stream.buffer);
+    let stream = new DecodeStream(this.stream.buffer);
     stream.pos = this._directoryPos;
 
     let font = new TTFFont(stream, coords);

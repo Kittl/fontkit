@@ -1,4 +1,4 @@
-import {DecodeStream} from 'restructure';
+import DecodeStream from './DecodeStream';
 
 export let logErrors = false;
 

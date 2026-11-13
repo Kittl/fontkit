@@ -264,3 +264,17 @@ Returns a `Uint8Array` containing the encoded font file.
 ## License
 
 MIT
+
+
+## Shared font source buffers
+
+TTF and OTF fonts can retain shared source bytes with
+`fontkit.create(Buffer.from(sharedArrayBuffer))`. Publish fully initialized bytes
+before creating readers and treat them as read-only afterward. Each font object
+keeps its own parsing and glyph caches while its source stream retains a view of
+the supplied shared allocation.
+
+Format signatures and string reads copy only the decoder input into ordinary
+byte arrays for browsers whose native `TextDecoder` rejects shared views. The
+complete font buffer is not copied. Cross-origin isolation is required when
+sharing buffers between a browser window and its workers.

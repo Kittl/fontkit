@@ -1,4 +1,4 @@
-import * as fontkit from 'fontkit';
+import * as fontkit from '@kittl/fontkit';
 
 describe('issues', function () {
     describe('#282 - ReferenceError: Cannot access \'c3x\' before initialization', function () {
